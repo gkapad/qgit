@@ -21,9 +21,9 @@ COMMIT='Update'
 
 while [ -n "$1" ]; do
 case $1 in
-	'--help'|'-h') Usage; ;;
-	'-i') COMMIT='Adding'; ;;
-	*) echo >/dev/null; ;;
+    '--help'|'-h') Usage; ;;
+             '-i') COMMIT='Adding'; ;;
+                *) echo >/dev/null; ;;
 esac
 shift
 done
@@ -39,9 +39,10 @@ COMMIT="${COMMIT}: `date --utc`"
 echo "Dir:$PWD"
 echo "Gitid:$GITNAME <$GITMAIL>"
 echo $COMMIT
+echo
 }|egrep --color=auto "^|Dir|Gitid"
 
 
-git add .\* \*
+git add *
 git commit -m "$COMMIT"
 git push
