@@ -1,0 +1,47 @@
+#!/bin/bash
+
+Usage(){
+cat << EOF
+`basename $0` - Another git utility - kapad/May18
+Usage: `basename $0` [--help|-h] [-i]
+
+  Adding all changed files to your git, under the
+  commit message "Update: <UTC_TIME>". The time, is your
+  system time, the time that command is executed.
+
+  By setting the '-i' option, the commit message,
+  change to "Adding: <UTC_TIME>"
+
+  ^Thats it ;)
+EOF
+exit 0
+}
+
+COMMIT='Update'
+
+while [ -n "$1" ]; do
+case $1 in
+	'--help'|'-h') Usage; ;;
+	'-i') COMMIT='Adding'; ;;
+	*) echo >/dev/null; ;;
+esac
+shift
+done
+
+
+[ ! -d ./.git ] && echo "[!] No git found !" && exit
+
+GITNAME=`git config --get user.name`
+GITMAIL=`git config --get user.email`
+COMMIT="${COMMIT}: `date --utc`"
+
+{
+echo "Dir:$PWD"
+echo "Gitid:$GITNAME <$GITMAIL>"
+echo $COMMIT
+}|egrep --color=auto "^|Dir|Gitid"
+
+
+git add .\* \*
+git commit -m "$COMMIT"
+git push
