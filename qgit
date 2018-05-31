@@ -33,18 +33,18 @@ done
 
 GITNAME=`git config --get user.name`
 GITMAIL=`git config --get user.email`
-COMMIT="${COMMIT}: `date --utc`"
+COMMITM="${COMMIT}: `date --utc`"
 
 GIT="https://github.com/$GITNAME/`basename $PWD`.git"
 
 {
 echo "Dir: $PWD"
 echo "Git: $GIT"
-echo $COMMIT
+echo $COMMITM
 echo
-}|egrep --color=auto "^|Dir|Git"
+}|egrep --color=auto "^|Dir|Git|$COMMIT"
 
 
 git add *
-git commit -m "$COMMIT"
+git commit -m "$COMMITM"
 git push
