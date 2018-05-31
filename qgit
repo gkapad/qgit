@@ -35,12 +35,14 @@ GITNAME=`git config --get user.name`
 GITMAIL=`git config --get user.email`
 COMMIT="${COMMIT}: `date --utc`"
 
+GIT="https://github.com/$GITNAME/`basename $PWD`.git"
+
 {
-echo "Dir:$PWD"
-echo "Gitid:$GITNAME <$GITMAIL>"
+echo "Dir: $PWD"
+echo "Git: $GIT"
 echo $COMMIT
 echo
-}|egrep --color=auto "^|Dir|Gitid"
+}|egrep --color=auto "^|Dir|Git"
 
 
 git add *
